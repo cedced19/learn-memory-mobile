@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Learn Memory Mobile</title>
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="site-container" ng-app="LearnMemory">
+        <div class="site-pusher">
+            <header class="header">
+                <a href="#/" class="header__icon" id="header__icon"></a>
+                <nav class="menu">
+                    <a href="#/" class="active">Download lessons</a>
+                    <a href="#/" class="active">Offline lessons</a>
+                    <a href="#/">Configuration</a>
+                </nav>
+                <span class="header__logo">Learn Memory</span>
+            </header>
+
+            <div class="site-content">
+                <div class="container" ng-view></div>
+            </div>
+
+            <div class="site-cache" id="site-cache"></div>
+        </div>
+    </div>
+
+
+
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/init-ui.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-routes.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
