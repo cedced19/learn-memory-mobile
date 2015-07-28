@@ -13,6 +13,5 @@
     $('.menu > a').click(function () {
         body.removeClass('with--sidebar');
     });
-
-
+    
 })(jQuery);

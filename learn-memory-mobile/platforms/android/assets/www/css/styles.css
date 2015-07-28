@@ -1,5 +1,4 @@
 html,body {
-	font-family:Roboto;
 	font-size:16px;
 	line-height:1.4;
 	height:100%;
@@ -11,12 +10,11 @@ a {
 	color:inherit
 }
 .container {
-	margin:0 20px;
+	margin:0 10px;
 	overflow:hidden;
-	*zoom:1
 }
 .site-content {
-	padding-top:66px
+	padding-top:76px
 }
 .header {
 	position:fixed;
@@ -29,6 +27,7 @@ a {
 }
 .header__logo {
 	font-weight:bold;
+    font-size: 20px;
 	padding:0 25px;
 	float:left
 }
@@ -36,10 +35,15 @@ a {
 	float:right
 }
 .menu a {
-	padding:0 10px
+	padding:0 10px;
+    text-decoration: none;
 }
 .menu a:hover {
-	color:#8e30f8;
+	color:#cd9bff;
+    text-decoration: none;
+}
+.menu a.active {
+    font-weight:bold;
 }
 @media only screen and (max-width:750px) {
 	.site-pusher,.site-container {
@@ -51,8 +55,6 @@ a {
 	.site-pusher {
 		-webkit-transition-duration:0.3s;
 		transition-duration:0.3s;
-		-moz-transform:translateX(0px);
-		-ms-transform:translateX(0px);
 		-webkit-transform:translateX(0px);
 		transform:translateX(0px)
 	}
@@ -104,8 +106,10 @@ a {
 	.menu a {
 		display:block;
 		height:40px;
-		text-align:center;
+        padding-left: 20%;
+		text-align:left;
 		line-height:40px;
+        outline: none;
 	}
 	.with--sidebar .site-pusher {
 		-webkit-transform:translateX(-250px);
@@ -120,18 +124,4 @@ a {
         transition: background-color 0.4s ease;
 		background-color: rgba(0,0,0,0.6)
 	}
-}
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Ubuntu'), url(../fonts/ubuntu-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Ubuntu'), url(../fonts/ubuntu-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
