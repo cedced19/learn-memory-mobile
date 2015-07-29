@@ -7,14 +7,14 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="site-container" ng-app="LearnMemory">
+    <div class="site-container" ng-app="LearnMemory" ng-swipe-right="hideMenu()" ng-swipe-left="showMenu()">
         <div class="site-pusher">
             <header class="header">
-                <a href="#" class="header__icon" id="header__icon" ng-hide="nav == 'home'"></a>
+                <a class="header__icon" ng-hide="nav == 'home'" ng-click="showMenu()"></a>
                 <nav class="menu" ng-hide="init">
-                    <a href="#/download" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
-                    <a href="#/offline" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
-                    <a href="#/config" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
+                    <a ng-click="hideMenu('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
+                    <a ng-click="hideMenu('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
+                    <a ng-click="hideMenu('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
                 </nav>
                 <span class="header__logo">Learn Memory</span>
             </header>
@@ -23,7 +23,7 @@
                 <div class="container" ng-view></div>
             </div>
 
-            <div class="site-cache" id="site-cache"></div>
+            <div class="site-cache" ng-click="hideMenu()"></div>
         </div>
     </div>
 
@@ -32,11 +32,10 @@
     <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/init-ui.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-routes.min.js"></script>
     <script src="js/angular-storage.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
     <script src="js/angular-sanitize.min.js"></script>
     <script src="js/app.js"></script>
 </body>

@@ -39,7 +39,7 @@ a {
     text-decoration: none;
 }
 .menu a:hover {
-	color:#cd9bff;
+	color:inherit;
     text-decoration: none;
 }
 .menu a.active {

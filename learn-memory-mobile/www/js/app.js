@@ -1,4 +1,4 @@
-﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize'])
+﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
     .when('/', {
@@ -23,9 +23,20 @@
 }])
 .controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
-        url: false,
+        url: '',
         offline: []
     });
+
+    $rootScope.showMenu = function () {
+        document.getElementsByTagName('body')[0].classList.add('with--sidebar');
+    };
+
+    $rootScope.hideMenu = function (path) {
+        document.getElementsByTagName('body')[0].classList.remove('with--sidebar');
+        if (path) {
+            $location.path('/' + path);
+        }
+    };
 
     if (!$localStorage.adress) {
         $rootScope.nav = 'home';

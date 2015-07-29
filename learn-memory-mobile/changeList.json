@@ -10,7 +10,6 @@
     "www\\fonts\\glyphicons-halflings-regular.woff2",
     "res\\icons\\android\\icon-48-mdpi.png",
     "www\\fonts\\glyphicons-halflings-regular.woff",
-    "www\\js\\init-ui.js",
     "merges\\android\\scripts\\platformOverrides.js",
     "res\\screens\\android\\screen-hdpi-portrait.png",
     "www\\js\\app.js",
@@ -41,20 +40,22 @@
     "www\\img\\dummy4.jpg",
     "www\\img\\dummy7.jpg",
     "www\\css\\bootstrap.css",
-    "www\\js\\jquery.min.js",
     "www\\views\\config.html",
     "www\\css\\styles.css",
     "res\\screens\\android\\screen-hdpi-landscape.png",
     "www\\img\\logo.png",
     "res\\screens\\android\\screen-xhdpi-landscape.png",
-    "res\\screens\\android\\screen-mdpi-portrait.png"
+    "res\\screens\\android\\screen-mdpi-portrait.png",
+    "www\\js\\angular-touch.min.js"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "www\\js\\init-ui.js",
+    "www\\js\\jquery.min.js"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\js\\app.js",
-    "www\\index.html"
+    "www\\css\\styles.css"
   ],
   "deletedFiles": [],
   "addedPlugins": [],
