@@ -1,1 +1,5 @@
-﻿<div ng-bind-html="item.content"></div>
+﻿<p class="lesson-info">
+    <span class="substance">{{item.substance}}</span>
+    <span class="date">Updated at {{item.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</span>
+</p>
+<div ng-bind-html="item.content"></div>

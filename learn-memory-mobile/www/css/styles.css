@@ -25,11 +25,22 @@ a {
 	color:#FFF;
 	background-color:#2E214B
 }
-.header__logo {
+.header-logo {
 	font-weight:bold;
     font-size: 20px;
 	padding:0 25px;
 	float:left
+}
+.header-download {
+    font-weight:bold;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+	float:left;
+}
+.header-download:hover {
+    color:inherit;
+    text-decoration: none;
 }
 .menu {
 	float:right
@@ -44,6 +55,21 @@ a {
 }
 .menu a.active {
     font-weight:bold;
+}
+.lesson-info {
+    background-color: #d9edf7;
+    padding: 15px;
+    overflow: hidden
+}
+.lesson-info .date {
+    position: relative;
+    float: right;
+}
+.lesson-info .substance {
+    position: relative;
+    float: left;
+    padding-right: 10px;
+    font-weight: bold;
 }
 @media only screen and (max-width:750px) {
 	.site-pusher,.site-container {
@@ -71,15 +97,14 @@ a {
 	.header {
 		position:static
 	}
-	.header__icon {
+	.header-icon {
 		position:relative;
 		display:block;
 		float:right;
 		width:50px;
-		height:66px;
-		cursor:pointer
+		height:66px
 	}
-	.header__icon:after {
+	.header-icon:after {
 		content:'';
 		position:absolute;
 		display:block;
@@ -111,11 +136,11 @@ a {
 		line-height:40px;
         outline: none;
 	}
-	.with--sidebar .site-pusher {
+	.with-sidebar .site-pusher {
 		-webkit-transform:translateX(-250px);
 		transform:translateX(-250px)
 	}
-	.with--sidebar .site-cache {
+	.with-sidebar .site-cache {
 		position:absolute;
 		top:0;
 		left:0;
@@ -124,4 +149,8 @@ a {
         transition: background-color 0.4s ease;
 		background-color: rgba(0,0,0,0.6)
 	}
+    .lesson-info .date {
+        position: relative;
+        float: left;
+    }
 }

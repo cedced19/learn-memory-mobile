@@ -10,13 +10,14 @@
     <div class="site-container" ng-app="LearnMemory" ng-swipe-right="hideMenu()" ng-swipe-left="showMenu()">
         <div class="site-pusher">
             <header class="header">
-                <a class="header__icon" ng-hide="nav == 'home'" ng-click="showMenu()"></a>
+                <a class="header-icon" ng-hide="nav == 'home'" ng-click="showMenu()"></a>
                 <nav class="menu" ng-hide="init">
                     <a ng-click="hideMenu('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
                     <a ng-click="hideMenu('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
                     <a ng-click="hideMenu('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
                 </nav>
-                <span class="header__logo">Learn Memory</span>
+                <span class="header-logo">Learn Memory</span>
+                <a class="header-download glyphicon glyphicon-cloud-download" ng-show="download" ng-click="download()"></a>
             </header>
 
             <div class="site-content">
@@ -28,8 +29,6 @@
     </div>
 
 
-
-    <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
 
     <script src="js/angular.min.js"></script>
