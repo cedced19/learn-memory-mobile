@@ -60,9 +60,8 @@
         $location.path('/download');
     }
 }).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http) {
+    $rootScope.nav = 'download';
     $http.get('http://' + $localStorage.adress + '/api/').success(function (data) {
-        $rootScope.nav = 'download';
-
         $scope.items = data;
 
         $scope.goItem = function (item) {
@@ -80,8 +79,8 @@
         $location.path('/offline');
     });
 }).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams) {
+    $rootScope.nav = false;
     $http.get('http://' + $localStorage.adress + '/api/' + $routeParams.id).success(function (data) {
-        $rootScope.nav = false;
         $rootScope.download = false;
 
         $scope.item = data;
