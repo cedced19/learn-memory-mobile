@@ -59,7 +59,9 @@
     } else {
         $location.path('/download');
     }
-}).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http) {
+}).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $anchorScroll) {
+    $anchorScroll();
+
     $rootScope.nav = 'download';
     $http.get('http://' + $localStorage.adress + '/api/').success(function (data) {
         $scope.items = data;
@@ -71,6 +73,7 @@
         $rootScope.download = function () {
             $http.get('http://' + $localStorage.adress + '/api/long').success(function (data) {
                 $localStorage.offline = data;
+                navigator.notification.alert('Some lessons has just been downloaded!', null, 'Done', 'Ok');
                 $location.path('/offline');
             });
         };
@@ -78,7 +81,9 @@
     }).error(function () {
         $location.path('/offline');
     });
-}).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams) {
+}).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll) {
+    $anchorScroll();
+
     $rootScope.nav = false;
     $http.get('http://' + $localStorage.adress + '/api/' + $routeParams.id).success(function (data) {
         $rootScope.download = false;
@@ -88,7 +93,9 @@
     }).error(function () {
         $location.path('/offline/' + $routeParams.id);
     });
-}).controller('LearnMemoryOfflineCtrl', function ($scope, $rootScope, $location, $localStorage, $http) {
+}).controller('LearnMemoryOfflineCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $anchorScroll) {
+    $anchorScroll();
+
     $rootScope.nav = 'offline';
     $rootScope.download = false;
 
@@ -97,16 +104,22 @@
     $scope.goItem = function (item) {
         $location.path('/offline/' + item.id);
     };
-}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams) {
+}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll) {
+    $anchorScroll();
+
     $rootScope.nav = false;
     $rootScope.download = false;
 
     angular.forEach($localStorage.offline, function (value, key) {
         if (value.id == $routeParams.id) {
+            
             $scope.item = value;
+            $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
         }
     });
-}).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage) {
+}).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $anchorScroll) {
+    $anchorScroll();
+
     $rootScope.nav = 'config';
     $rootScope.download = false;
 
@@ -114,5 +127,6 @@
 
     $scope.update = function () {
         $localStorage.adress = $scope.adress;
+        navigator.notification.alert('The adress has just been updated!', null, 'Done', 'Ok');
     };
 });

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.github.cedced19.learnmemorymobile" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
   <name>Learn Memory</name>
-  <description>A application to get </description>
+  <description>This application use the API of your Learn Memory server to show you your lessons on your mobile phone online and offline.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Cedced19</author>
   <content src="index.html" />
   <access origin="*" />
@@ -24,4 +24,5 @@
     <splash src="res/screens/android/screen-mdpi-portrait.png" density="port-mdpi" />
     <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
   </platform>
+  <vs:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
 </widget>

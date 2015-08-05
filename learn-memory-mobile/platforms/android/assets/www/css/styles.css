@@ -56,6 +56,12 @@ a {
 .menu a.active {
     font-weight:bold;
 }
+.lesson-error {
+    color: #c7254e;
+    background-color: #f9f2f4;
+    padding: 15px;
+    overflow: hidden
+}
 .lesson-info {
     background-color: #d9edf7;
     padding: 15px;
