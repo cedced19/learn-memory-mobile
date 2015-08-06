@@ -5,9 +5,7 @@
   <author href="http://cordova.io" email="dev@cordova.apache.org">Cedced19</author>
   <content src="index.html" />
   <access origin="*" />
-  <vs:features />
   <preference name="SplashScreen" value="screen" />
-  <preference name="windows-target-version" value="8.1" />
   <platform name="android">
     <icon src="res/icons/android/icon-36-ldpi.png" density="ldpi" />
     <icon src="res/icons/android/icon-48-mdpi.png" density="mdpi" />

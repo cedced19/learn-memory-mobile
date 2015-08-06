@@ -21,8 +21,6 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">Cedced19</author>
     <content src="index.html" />
     <access origin="*" />
-    <vs:features />
     <preference name="SplashScreen" value="screen" />
-    <preference name="windows-target-version" value="8.1" />
     <vs:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
 </widget>

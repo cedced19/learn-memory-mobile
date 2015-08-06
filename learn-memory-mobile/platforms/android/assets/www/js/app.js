@@ -73,7 +73,7 @@
         $rootScope.download = function () {
             $http.get('http://' + $localStorage.adress + '/api/long').success(function (data) {
                 $localStorage.offline = data;
-                navigator.notification.alert('Some lessons has just been downloaded!', null, 'Done', 'Ok');
+                navigator.notification.alert('All lessons have just been downloaded!', null, 'Done', 'Ok');
                 $location.path('/offline');
             });
         };
@@ -86,10 +86,31 @@
 
     $rootScope.nav = false;
     $http.get('http://' + $localStorage.adress + '/api/' + $routeParams.id).success(function (data) {
-        $rootScope.download = false;
-
         $scope.item = data;
 
+        $rootScope.download = function () {
+                var exist = false;
+                angular.forEach($localStorage.offline, function (value, key) {
+                    if (value.id == $routeParams.id) {
+                        exist = key;
+                    }
+                });
+
+                data.keywords = data.content
+                    .replace(/&#39;/gi, '\'')
+                    .replace(/\n/gi, ' ')
+                    .replace(/<.[^>]*>/gi, '')
+                    .replace(/&quot/gi, '"')
+                    .substring(0, 100);
+                
+                if (exist != false) {
+                    $localStorage.offline[exist] = data;
+                } else {
+                    $localStorage.offline.push(data);
+                }
+                navigator.notification.alert('This lesson has just been downloaded!', null, 'Done', 'Ok');
+                $location.path('/offline/' + $routeParams.id);
+        };
     }).error(function () {
         $location.path('/offline/' + $routeParams.id);
     });
