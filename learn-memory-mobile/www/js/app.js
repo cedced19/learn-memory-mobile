@@ -103,13 +103,23 @@
                     .replace(/&quot/gi, '"')
                     .substring(0, 100);
                 
-                if (exist != false) {
+                if (exist) {
                     $localStorage.offline[exist] = data;
                 } else {
                     $localStorage.offline.push(data);
                 }
                 navigator.notification.alert('This lesson has just been downloaded!', null, 'Done', 'Ok');
                 $location.path('/offline/' + $routeParams.id);
+        };
+
+        document.getElementById('lesson-content').onclick = function (e) {
+            e = e || window.event;
+            var element = e.target || e.srcElement;
+
+            if (element.tagName == 'A') {
+                window.open(element.href, '_system');
+                return false;
+            }
         };
     }).error(function () {
         $location.path('/offline/' + $routeParams.id);
@@ -138,6 +148,16 @@
             $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
         }
     });
+
+    document.getElementById('lesson-content').onclick = function (e) {
+        e = e || window.event;
+        var element = e.target || e.srcElement;
+
+        if (element.tagName == 'A') {
+            window.open(element.href, '_system');
+            return false;
+        }
+    };
 }).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $anchorScroll) {
     $anchorScroll();
 

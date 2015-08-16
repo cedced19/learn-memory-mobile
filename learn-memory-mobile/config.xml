@@ -23,4 +23,5 @@
     <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
   </platform>
   <vs:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
+  <vs:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
 </widget>
