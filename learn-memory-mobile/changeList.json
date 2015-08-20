@@ -133,8 +133,13 @@
     "org.apache.cordova.inappbrowser@0.6.0"
   ],
   "deletedPluginsIos": [],
-  "changedFiles": [],
+  "changedFiles": [
+    "config.xml"
+  ],
   "deletedFiles": [],
-  "addedPlugins": [],
+  "addedPlugins": [
+    "org.apache.cordova.dialogs@0.3.0",
+    "org.apache.cordova.inappbrowser@0.6.0"
+  ],
   "deletedPlugins": []
 }
