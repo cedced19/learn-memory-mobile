@@ -21,7 +21,7 @@
     <splash density="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
     <name>Learn Memory</name>
     <description>This application use the API of your Learn Memory server to show you your lessons on your mobile phone online and offline.</description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">Cedced19</author>
+    <author email="cedced19@gmail.com" href="http://cedced19.github.io">Cedced19</author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="SplashScreen" value="screen" />
