@@ -210,3 +210,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# Signing android application
+*.keystore
+learn-memory-mobile/platforms/android/ant.properties
+learn-memory-mobile/res/native/android/ant.properties
