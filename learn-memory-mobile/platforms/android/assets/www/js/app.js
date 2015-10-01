@@ -29,6 +29,21 @@
         redirectTo: '/'
     });
 }])
+.run(['$rootScope', '$location', function ($rootScope, $location) {
+    $rootScope.$menu = {
+        show: function () {
+            if ($rootScope.nav != 'home') {
+                document.getElementsByTagName('body')[0].classList.add('with-sidebar');
+            }
+        },
+        hide: function (path) {
+            document.getElementsByTagName('body')[0].classList.remove('with-sidebar');
+            if (path) {
+                $location.path('/' + path);
+            }
+        }
+    };
+}])
 .controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
         adress: '',
@@ -37,23 +52,11 @@
 
     $rootScope.download = false;
 
-    $rootScope.showMenu = function () {
-        document.getElementsByTagName('body')[0].classList.add('with-sidebar');
-    };
-
-    $rootScope.hideMenu = function (path) {
-        document.getElementsByTagName('body')[0].classList.remove('with-sidebar');
-        if (path) {
-            $location.path('/' + path);
-        }
-    };
-
     if (!$localStorage.adress) {
         $rootScope.nav = 'home';
 
         $scope.start = function () {
             $localStorage.adress = $scope.adress;
-            $scope.init = false;
             $location.path('/download');
         };
     } else {

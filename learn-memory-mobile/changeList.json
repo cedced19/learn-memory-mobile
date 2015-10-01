@@ -116,6 +116,7 @@
     "plugins\\org.apache.cordova.dialogs\\README.md",
     "res\\screens\\android\\screen-hdpi-landscape.png",
     "www\\img\\logo.png",
+    "res\\native\\android\\learn-memory.keystore",
     "plugins\\org.apache.cordova.dialogs\\doc\\ja\\index.md",
     "www\\js\\angular-touch.min.js",
     "plugins\\org.apache.cordova.inappbrowser\\NOTICE",
@@ -133,13 +134,8 @@
     "org.apache.cordova.inappbrowser@0.6.0"
   ],
   "deletedPluginsIos": [],
-  "changedFiles": [
-    "config.xml"
-  ],
+  "changedFiles": [],
   "deletedFiles": [],
-  "addedPlugins": [
-    "org.apache.cordova.dialogs@0.3.0",
-    "org.apache.cordova.inappbrowser@0.6.0"
-  ],
+  "addedPlugins": [],
   "deletedPlugins": []
 }

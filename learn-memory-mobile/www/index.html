@@ -7,14 +7,14 @@
     <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="site-container" ng-app="LearnMemory" ng-swipe-right="hideMenu()" ng-swipe-left="showMenu()">
+    <div class="site-container" ng-app="LearnMemory" ng-swipe-right="$menu.hide()" ng-swipe-left="$menu.show()">
         <div class="site-pusher">
             <header class="header">
-                <a class="header-icon" ng-hide="nav == 'home'" ng-click="showMenu()"></a>
-                <nav class="menu" ng-hide="init">
-                    <a ng-click="hideMenu('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
-                    <a ng-click="hideMenu('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
-                    <a ng-click="hideMenu('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
+                <a class="header-icon" ng-hide="nav == 'home'" ng-click="$menu.show()"></a>
+                <nav class="menu" ng-hide="nav == 'home'">
+                    <a ng-click="$menu.hide('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
+                    <a ng-click="$menu.hide('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
+                    <a ng-click="$menu.hide('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
                 </nav>
                 <span class="header-logo">Learn Memory</span>
                 <a class="header-download glyphicon glyphicon-cloud-download" ng-show="download" ng-click="download()"></a>
@@ -24,7 +24,7 @@
                 <div class="container" autoscroll="true" ng-view></div>
             </div>
 
-            <div class="site-cache" ng-click="hideMenu()"></div>
+            <div class="site-cache" ng-click="$menu.hide()"></div>
         </div>
     </div>
 
