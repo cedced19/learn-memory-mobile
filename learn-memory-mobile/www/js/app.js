@@ -1,5 +1,5 @@
 ﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch'])
-.config(['$routeProvider', function ($routeProvider) {
+.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
         templateUrl: 'views/home.html',
@@ -28,8 +28,8 @@
     .otherwise({
         redirectTo: '/'
     });
-}])
-.run(['$rootScope', '$location', function ($rootScope, $location) {
+})
+.run(function ($rootScope, $location) {
     $rootScope.$menu = {
         show: function () {
             if ($rootScope.nav != 'home') {
@@ -43,7 +43,7 @@
             }
         }
     };
-}])
+})
 .controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
         adress: '',
