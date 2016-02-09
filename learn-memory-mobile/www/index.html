@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src *; style-src 'self' 'unsafe-inline'; img-src *; media-src *; frame-src *; font-src *; connect-src *">
     <meta charset="utf-8" />
     <title>Learn Memory Mobile</title>
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+    <allow-navigation href="*" />
 </head>
 <body>
     <div class="site-container" ng-app="LearnMemory" ng-swipe-right="$menu.hide()" ng-swipe-left="$menu.show()">

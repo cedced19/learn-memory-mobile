@@ -24,4 +24,9 @@
   </platform>
   <vs:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
   <vs:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
+  <vs:plugin name="cordova-plugin-whitelist" version="1.2.1" />
+  <vs:plugin name="cordova-plugin-statusbar" version="2.1.0" />
+  <preference name="StatusBarOverlaysWebView" value="true" />
+  <preference name="StatusBarBackgroundColor" value="#2E214B" />
+  <preference name="StatusBarStyle" value="lightcontent" />
 </widget>

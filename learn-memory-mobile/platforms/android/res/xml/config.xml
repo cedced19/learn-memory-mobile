@@ -7,6 +7,14 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
     <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />
     <icon density="mdpi" src="res/icons/android/icon-48-mdpi.png" />
     <icon density="hdpi" src="res/icons/android/icon-72-hdpi.png" />
@@ -27,4 +35,9 @@
     <preference name="SplashScreen" value="screen" />
     <vs:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
     <vs:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
+    <vs:plugin name="cordova-plugin-whitelist" version="1.2.1" />
+    <vs:plugin name="cordova-plugin-statusbar" version="2.1.0" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#2E214B" />
+    <preference name="StatusBarStyle" value="lightcontent" />
 </widget>
