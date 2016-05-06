@@ -215,3 +215,6 @@ ModelManifest.xml
 *.keystore
 learn-memory-mobile/platforms/android/ant.properties
 learn-memory-mobile/res/native/android/ant.properties
+
+# Platform
+learn-memory-mobile/platforms/

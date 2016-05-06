@@ -43,6 +43,12 @@
             }
         }
     };
+    document.addEventListener("deviceready", function () {
+      document.addEventListener("menubutton", function () {
+        $rootScope.$menu.show();
+      }, false);
+    });
+
 })
 .controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
@@ -105,14 +111,14 @@
                     .replace(/<.[^>]*>/gi, '')
                     .replace(/&quot/gi, '"')
                     .substring(0, 100);
-                
+
                 if (exist) {
                     $localStorage.offline[exist] = data;
                 } else {
                     $localStorage.offline.push(data);
                 }
                 navigator.notification.alert('This lesson has just been downloaded!', null, 'Done', 'Ok');
-                $location.path('/offline/' + $routeParams.id);
+                $rootScope.download = false;
         };
 
         document.getElementById('lesson-content').onclick = function (e) {
@@ -138,17 +144,16 @@
     $scope.goItem = function (item) {
         $location.path('/offline/' + item.id);
     };
-}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll) {
-    $anchorScroll();
+}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll, $window) {
 
     $rootScope.nav = false;
     $rootScope.download = false;
 
     angular.forEach($localStorage.offline, function (value, key) {
         if (value.id == $routeParams.id) {
-            
             $scope.item = value;
             $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
+            document.getElementById('lesson-content').scrollTop = 0;
         }
     });
 

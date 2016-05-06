@@ -7,18 +7,19 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
+        }
+    },
+    "dependent_plugins": {
         "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         }
-    },
-    "dependent_plugins": {}
+    }
 }
