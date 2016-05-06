@@ -218,3 +218,5 @@ learn-memory-mobile/res/native/android/ant.properties
 
 # Platform
 learn-memory-mobile/platforms/
+
+learn-memory-mobile/build.json
