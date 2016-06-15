@@ -14,16 +14,16 @@
             <header class="header">
                 <a class="header-icon" ng-hide="nav == 'home'" ng-click="$menu.show()"></a>
                 <nav class="menu" ng-hide="nav == 'home'">
-                    <a ng-click="$menu.hide('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> Download lessons</a>
-                    <a ng-click="$menu.hide('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> Offline lessons</a>
-                    <a ng-click="$menu.hide('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> Configuration</a>
+                    <a ng-click="$menu.hide('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> {{ 'download_lessons' | translate }}</a>
+                    <a ng-click="$menu.hide('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> {{ 'offline_lessons' | translate }}</a>
+                    <a ng-click="$menu.hide('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> {{ 'configuration' | translate }}</a>
                 </nav>
                 <span class="header-logo">Learn Memory</span>
                 <a class="header-download glyphicon glyphicon-cloud-download" ng-show="download" ng-click="download()"></a>
             </header>
 
             <div class="site-content">
-                <div class="container" autoscroll="true" ng-view></div>
+                <div class="container" autoscroll="true" ng-view id="container"></div>
             </div>
 
             <div class="site-cache" ng-click="$menu.hide()"></div>
@@ -38,6 +38,9 @@
     <script src="js/angular-storage.min.js"></script>
     <script src="js/angular-touch.min.js"></script>
     <script src="js/angular-sanitize.min.js"></script>
+    <script src="js/angular-translate.min.js"></script>
+    <script src="js/angular-translate-loader-static-files.min.js"></script>
+    <script src="js/angular-translate-loader-url.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

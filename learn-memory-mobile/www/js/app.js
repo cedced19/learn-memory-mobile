@@ -1,5 +1,5 @@
-﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch'])
-.config(function ($routeProvider) {
+﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 'pascalprecht.translate'])
+.config(function ($routeProvider, $translateProvider) {
     $routeProvider
     .when('/', {
         templateUrl: 'views/home.html',
@@ -28,6 +28,20 @@
     .otherwise({
         redirectTo: '/'
     });
+
+    $translateProvider
+    .useStaticFilesLoader({
+        prefix: '/langs/locale-',
+        suffix: '.json'
+    })
+    .registerAvailableLanguageKeys(['en', 'fr'], {
+      'fr_*': 'fr',
+      'en_*': 'en',
+      '*': 'en'
+    })
+    .useSanitizeValueStrategy(null)
+    .determinePreferredLanguage()
+    .fallbackLanguage('en');
 })
 .run(function ($rootScope, $location) {
     $rootScope.$menu = {
@@ -43,12 +57,16 @@
             }
         }
     };
+
     document.addEventListener("deviceready", function () {
       document.addEventListener("menubutton", function () {
         $rootScope.$menu.show();
       }, false);
     });
 
+    $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+          $rootScope.nav = $location.path().substring(1);
+    });
 })
 .controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
@@ -57,9 +75,9 @@
     });
 
     $rootScope.download = false;
+    $rootScope.nav = 'home';
 
     if (!$localStorage.adress) {
-        $rootScope.nav = 'home';
 
         $scope.start = function () {
             $localStorage.adress = $scope.adress;
@@ -68,10 +86,8 @@
     } else {
         $location.path('/download');
     }
-}).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $anchorScroll) {
-    $anchorScroll();
+}).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate) {
 
-    $rootScope.nav = 'download';
     $http.get('http://' + $localStorage.adress + '/api/').success(function (data) {
         $scope.items = data;
 
@@ -82,7 +98,9 @@
         $rootScope.download = function () {
             $http.get('http://' + $localStorage.adress + '/api/long').success(function (data) {
                 $localStorage.offline = data;
-                navigator.notification.alert('All lessons have just been downloaded!', null, 'Done', 'Ok');
+                $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
+                  navigator.notification.alert(translations['all_lesson_downloaded'], null, translations['done'], translations['ok']);
+                });
                 $location.path('/offline');
             });
         };
@@ -90,10 +108,8 @@
     }).error(function () {
         $location.path('/offline');
     });
-}).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll) {
-    $anchorScroll();
+}).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
 
-    $rootScope.nav = false;
     $http.get('http://' + $localStorage.adress + '/api/' + $routeParams.id).success(function (data) {
         $scope.item = data;
 
@@ -117,7 +133,9 @@
                 } else {
                     $localStorage.offline.push(data);
                 }
-                navigator.notification.alert('This lesson has just been downloaded!', null, 'Done', 'Ok');
+                $translate(['a_lesson_downloaded', 'ok', 'done']).then(function (translations) {
+                  navigator.notification.alert(translations['a_lesson_downloaded'], null, translations['done'], translations['ok']);
+                });
                 $rootScope.download = false;
         };
 
@@ -133,18 +151,17 @@
     }).error(function () {
         $location.path('/offline/' + $routeParams.id);
     });
-}).controller('LearnMemoryOfflineCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $anchorScroll) {
-    $anchorScroll();
+}).controller('LearnMemoryOfflineCtrl', function ($scope, $rootScope, $location, $localStorage) {
 
-    $rootScope.nav = 'offline';
     $rootScope.download = false;
 
     $scope.items = $localStorage.offline;
+    document.getElementById('container').scrollTop = 0;
 
     $scope.goItem = function (item) {
         $location.path('/offline/' + item.id);
     };
-}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $anchorScroll, $window) {
+}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $routeParams) {
 
     $rootScope.nav = false;
     $rootScope.download = false;
@@ -153,7 +170,7 @@
         if (value.id == $routeParams.id) {
             $scope.item = value;
             $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
-            document.getElementById('lesson-content').scrollTop = 0;
+            document.getElementById('container').scrollTop = 0;
         }
     });
 
@@ -166,16 +183,16 @@
             return false;
         }
     };
-}).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $anchorScroll) {
-    $anchorScroll();
+}).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $translate) {
 
-    $rootScope.nav = 'config';
     $rootScope.download = false;
 
     $scope.adress = $localStorage.adress;
 
     $scope.update = function () {
         $localStorage.adress = $scope.adress;
-        navigator.notification.alert('The adress has just been updated!', null, 'Done', 'Ok');
+        $translate(['adress_updated', 'ok', 'updated']).then(function (translations) {
+          navigator.notification.alert(translations['adress_updated'], null, translations['updated'], translations['ok']);
+        });
     };
 });

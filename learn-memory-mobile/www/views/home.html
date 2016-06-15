@@ -1,12 +1,6 @@
-﻿<h1>First configuration</h1>
-
-<p>
-    This application use the API of Learn Memory to get lessons online and <b>offline</b>.
-</p>
-
-<p>
-    Please set the internet adress of your Learn Memory server <i>(Ex: domain.com:7772)</i>:
-</p>
-<input type="text" class="form-control" placeholder="Adress" ng-model="adress">
+﻿<h1 translate="first_configuration"></h1>
+<p ng-bind-html="'app_description' | translate"></p>
+<p ng-bind-html="'set_adress' | translate"></p>
+<input type="text" class="form-control" placeholder="{{ 'adress' | translate }}" ng-model="adress">
 <br>
-<button type="button" class="btn btn-success" style="float:right;" ng-click="start()">Start learn</button>
+<button type="button" class="btn btn-success" style="float:right;" ng-click="start()" translate="start_learn"></button>

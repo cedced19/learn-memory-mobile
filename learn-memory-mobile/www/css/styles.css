@@ -139,21 +139,21 @@ a {
 		overflow-y:scroll;
 		-webkit-overflow-scrolling:touch;
 		background-color:#2E214B;
-		width:250px;
-		-webkit-transform:translateX(250px);
-		transform:translateX(250px);
+		width:275px;
+		-webkit-transform:translateX(275px);
+		transform:translateX(275px);
 	}
 	.menu a {
 		display:block;
 		height:40px;
-        padding-left: 20%;
+    padding-left: 10%;
 		text-align:left;
 		line-height:40px;
-        outline: none;
+    outline: none;
 	}
 	.with-sidebar .site-pusher {
-		-webkit-transform:translateX(-250px);
-		transform:translateX(-250px)
+		-webkit-transform:translateX(-275px);
+		transform:translateX(-275px)
 	}
 	.with-sidebar .site-cache {
 		position:absolute;
@@ -164,8 +164,8 @@ a {
         transition: background-color 0.4s ease;
 		background-color: rgba(0,0,0,0.6)
 	}
-    .lesson-info .date {
-        position: relative;
-        float: left;
-    }
+  .lesson-info .date {
+    position: relative;
+    float: left;
+  }
 }
