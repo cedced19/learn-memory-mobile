@@ -218,5 +218,8 @@ learn-memory-mobile/res/native/android/ant.properties
 
 # Platform
 learn-memory-mobile/platforms/
-
+learn-memory-mobile/plugins/cordova-plugins-dialogs/
+learn-memory-mobile/plugins/cordova-plugins-inappbrowser/
+learn-memory-mobile/plugins/cordova-plugins-statusbar/
+learn-memory-mobile/plugins/cordova-plugins-whitelist/
 learn-memory-mobile/build.json

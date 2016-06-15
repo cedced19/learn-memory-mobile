@@ -1,16 +1,4 @@
 {
-    "org.apache.cordova.dialogs": {
-        "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.dialogs"
-        }
-    },
-    "org.apache.cordova.inappbrowser": {
-        "source": {
-            "type": "registry",
-            "id": "org.apache.cordova.inappbrowser"
-        }
-    },
     "cordova-plugin-dialogs": {
         "source": {
             "type": "registry",
@@ -38,7 +26,7 @@
     "cordova-plugin-statusbar": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-statusbar@~2.1.0"
+            "id": "cordova-plugin-statusbar"
         },
         "is_top_level": true,
         "variables": {}
