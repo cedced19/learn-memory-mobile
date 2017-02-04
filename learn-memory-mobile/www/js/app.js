@@ -145,12 +145,10 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
         $rootScope.share = function () {
           $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
             var options = {
-              message: translations.lesson_of + ' ' + data.substance, // not supported on some apps (Facebook, Instagram)
-              subject: translations.lesson_of + ' ' + data.substance,
-              url: 'http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
-              chooserTitle: translations.pick_an_app
+              message: translations.lesson_of + ' ' + data.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
+              title: translations.pick_an_app
             };
-            window.plugins.socialsharing.shareWithOptions(options, null, null);
+            sharetext(options.message, options.title);
           });
         };
 

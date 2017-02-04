@@ -1,4 +1,4 @@
-﻿angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 'pascalprecht.translate'])
+angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 'pascalprecht.translate'])
 .config(function ($routeProvider, $translateProvider) {
     $routeProvider
     .when('/', {
@@ -31,7 +31,7 @@
 
     $translateProvider
     .useStaticFilesLoader({
-        prefix: '/langs/locale-',
+        prefix: 'langs/locale-',
         suffix: '.json'
     })
     .registerAvailableLanguageKeys(['en', 'fr'], {
@@ -57,12 +57,6 @@
             }
         }
     };
-
-    document.addEventListener("deviceready", function () {
-      document.addEventListener("menubutton", function () {
-        $rootScope.$menu.show();
-      }, false);
-    });
 
     $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
           $rootScope.nav = $location.path().substring(1);
@@ -96,13 +90,22 @@
         };
 
         $rootScope.download = function () {
+          $translate('loading').then(function (translation) {
+            SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
             $http.get('http://' + $localStorage.adress + '/api/long').success(function (data) {
                 $localStorage.offline = data;
                 $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
-                  navigator.notification.alert(translations['all_lesson_downloaded'], null, translations['done'], translations['ok']);
+                  $location.path('/offline');
+                  SpinnerPlugin.activityStop();
+                  navigator.notification.alert(translations.all_lesson_downloaded, null, translations.done, translations.ok);
                 });
-                $location.path('/offline');
+            }).error(function () {
+                $translate(['cannot_connect', 'ok', 'error']).then(function (translations) {
+                  SpinnerPlugin.activityStop();
+                  navigator.notification.alert(translations.cannot_connect, null, translations.error, translations.ok);
+                });
             });
+          });
         };
 
     }).error(function () {
@@ -134,9 +137,19 @@
                     $localStorage.offline.push(data);
                 }
                 $translate(['a_lesson_downloaded', 'ok', 'done']).then(function (translations) {
-                  navigator.notification.alert(translations['a_lesson_downloaded'], null, translations['done'], translations['ok']);
+                  navigator.notification.alert(translations.a_lesson_downloaded, null, translations.done, translations.ok);
                 });
                 $rootScope.download = false;
+        };
+
+        $rootScope.share = function () {
+          $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
+            var options = {
+              message: translations.lesson_of + ' ' + data.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
+              title: translations.pick_an_app
+            };
+            sharetext(options.message, options.title);
+          });
         };
 
         document.getElementById('lesson-content').onclick = function (e) {
@@ -192,7 +205,7 @@
     $scope.update = function () {
         $localStorage.adress = $scope.adress;
         $translate(['adress_updated', 'ok', 'updated']).then(function (translations) {
-          navigator.notification.alert(translations['adress_updated'], null, translations['updated'], translations['ok']);
+          navigator.notification.alert(translations.adress_updated, null, translations.updated, translations.ok);
         });
     };
 });

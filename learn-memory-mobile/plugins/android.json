@@ -13,10 +13,16 @@
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         },
+        "cordova-plugin-spinner": {
+            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
+        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
+        },
+        "io.github.cedced19.sharetext": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         }
     },

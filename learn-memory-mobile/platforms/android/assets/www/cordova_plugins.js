@@ -1,6 +1,35 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "id": "cordova-plugin-dialogs.notification_android",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-spinner/www/spinner-plugin.js",
+        "id": "cordova-plugin-spinner.SpinnerPlugin",
+        "clobbers": [
+            "SpinnerPlugin"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
         "id": "cordova-plugin-statusbar.statusbar",
         "clobbers": [
@@ -13,34 +42,22 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
-        "id": "org.apache.cordova.dialogs.notification",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.dialogs/www/android/notification.js",
-        "id": "org.apache.cordova.dialogs.notification_android",
-        "merges": [
-            "navigator.notification"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "file": "plugins/io.github.cedced19.sharetext/www/sharetext.js",
+        "id": "io.github.cedced19.sharetext.Sharetext",
         "clobbers": [
-            "window.open"
+            "sharetext"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-statusbar": "2.1.0",
+    "cordova-plugin-dialogs": "1.2.1",
+    "cordova-plugin-inappbrowser": "1.4.0",
+    "cordova-plugin-spinner": "1.1.0",
+    "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-whitelist": "1.2.1",
-    "org.apache.cordova.dialogs": "0.3.0",
-    "org.apache.cordova.inappbrowser": "0.6.0"
+    "io.github.cedced19.sharetext": "0.0.0"
 };
 // BOTTOM OF METADATA
 });
