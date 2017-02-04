@@ -215,11 +215,15 @@ ModelManifest.xml
 *.keystore
 learn-memory-mobile/platforms/android/ant.properties
 learn-memory-mobile/res/native/android/ant.properties
+learn-memory-mobile/build.json
 
 # Platform
 learn-memory-mobile/platforms/
-learn-memory-mobile/plugins/cordova-plugins-dialogs/
-learn-memory-mobile/plugins/cordova-plugins-inappbrowser/
-learn-memory-mobile/plugins/cordova-plugins-statusbar/
-learn-memory-mobile/plugins/cordova-plugins-whitelist/
-learn-memory-mobile/build.json
+
+# Plugins
+learn-memory-mobile/plugins/cordova-plugin-dialogs/
+learn-memory-mobile/plugins/cordova-plugin-inappbrowser/
+learn-memory-mobile/plugins/cordova-plugin-statusbar/
+learn-memory-mobile/plugins/cordova-plugin-whitelist/
+learn-memory-mobile/plugins/cordova-plugin-spinner/
+learn-memory-mobile/plugins/cordova-plugin-x-socialsharing/

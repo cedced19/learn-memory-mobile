@@ -21,5 +21,10 @@
   "done": "Done",
   "all_lesson_downloaded": "All lessons have just been downloaded!",
   "adress_updated": "The adress has just been updated!",
-  "updated": "Updated"
+  "updated": "Updated",
+  "loading": "Loading",
+  "error": "Error",
+  "cannot_connect": "Unable to download",
+  "lesson_of": "Lesson of",
+  "pick_an_app": "Pick an app"
 }

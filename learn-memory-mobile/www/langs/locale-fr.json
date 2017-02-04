@@ -21,5 +21,10 @@
   "done": "Terminé",
   "all_lesson_downloaded": "Toutes les leçons viennent d'être téléchargées !",
   "adress_updated": "L'adresse vient d'être modifiée.",
-  "updated": "Modifiée"
+  "updated": "Modifiée",
+  "loading": "Chargement",
+  "error": "Erreur",
+  "cannot_connect": "Impossible de se connecter",
+  "lesson_of": "Leçon de",
+  "pick_an_app": "Choisir une application"
 }
