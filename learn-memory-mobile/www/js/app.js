@@ -142,10 +142,10 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
                 $rootScope.download = false;
         };
 
-        $rootScope.share = function () {
+        $scope.share = function () {
           $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
             var options = {
-              message: translations.lesson_of + ' ' + data.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
+              message: translations.lesson_of + ' ' + $scope.item.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
               title: translations.pick_an_app
             };
             sharetext(options.message, options.title);
@@ -174,7 +174,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
     $scope.goItem = function (item) {
         $location.path('/offline/' + item.id);
     };
-}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $routeParams) {
+}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $routeParams, $translate) {
 
     $rootScope.nav = false;
     $rootScope.download = false;
@@ -186,6 +186,16 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
             document.getElementById('container').scrollTop = 0;
         }
     });
+
+    $scope.share = function () {
+      $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
+        var options = {
+          message: translations.lesson_of + ' ' + $scope.item.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
+          title: translations.pick_an_app
+        };
+        sharetext(options.message, options.title);
+      });
+    };
 
     document.getElementById('lesson-content').onclick = function (e) {
         e = e || window.event;
