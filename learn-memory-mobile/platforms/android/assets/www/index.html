@@ -14,8 +14,7 @@
             <header class="header">
                 <a class="header-icon" ng-hide="nav == 'home'" ng-click="$menu.show()"></a>
                 <nav class="menu" ng-hide="nav == 'home'">
-                    <a ng-click="$menu.hide('download')" ng-class="{active: nav == 'download'}"><i class="glyphicon glyphicon-floppy-save"></i> {{ 'download_lessons' | translate }}</a>
-                    <a ng-click="$menu.hide('offline')" ng-class="{active: nav == 'offline'}"><i class="glyphicon glyphicon-floppy-disk"></i> {{ 'offline_lessons' | translate }}</a>
+                    <a ng-click="$menu.hide('lessons')" ng-class="{active: nav == 'lessons'}"><i class="glyphicon glyphicon-list"></i> {{ 'lessons' | translate }}</a>
                     <a ng-click="$menu.hide('config')" ng-class="{active: nav == 'config'}"><i class="glyphicon glyphicon-cog"></i> {{ 'configuration' | translate }}</a>
                 </nav>
                 <span class="header-logo">Learn Memory</span>

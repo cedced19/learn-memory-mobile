@@ -5,21 +5,13 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
         templateUrl: 'views/home.html',
         controller: 'LearnMemoryHomeCtrl'
     })
-    .when('/download', {
+    .when('/lessons', {
         templateUrl: 'views/list.html',
-        controller: 'LearnMemoryDownloadCtrl'
+        controller: 'LearnMemoryListCtrl'
     })
-    .when('/download/:id', {
+    .when('/lessons/:id', {
         templateUrl: 'views/lesson.html',
-        controller: 'LearnMemoryDownloadItemCtrl'
-    })
-    .when('/offline', {
-        templateUrl: 'views/list.html',
-        controller: 'LearnMemoryOfflineCtrl'
-    })
-    .when('/offline/:id', {
-        templateUrl: 'views/lesson.html',
-        controller: 'LearnMemoryOfflineItemCtrl'
+        controller: 'LearnMemoryItemCtrl'
     })
     .when('/config', {
         templateUrl: 'views/config.html',
@@ -75,137 +67,146 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
 
         $scope.start = function () {
             $localStorage.adress = $scope.adress;
-            $location.path('/download');
+            $location.path('/lessons');
         };
     } else {
-        $location.path('/download');
+        $location.path('/lessons');
     }
-}).controller('LearnMemoryDownloadCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate) {
-
-    $http.get('http://' + $localStorage.adress + '/api/').success(function (data) {
-        $scope.items = data;
-
-        $scope.goItem = function (item) {
-            $location.path('/download/' + item.id);
-        };
-
-        $rootScope.download = function () {
-          $translate('loading').then(function (translation) {
-            SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
-            $http.get('http://' + $localStorage.adress + '/api/long').success(function (data) {
-                $localStorage.offline = data;
-                $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
-                  $location.path('/offline');
-                  SpinnerPlugin.activityStop();
-                  navigator.notification.alert(translations.all_lesson_downloaded, null, translations.done, translations.ok);
-                });
-            }).error(function () {
-                $translate(['cannot_connect', 'ok', 'error']).then(function (translations) {
-                  SpinnerPlugin.activityStop();
-                  navigator.notification.alert(translations.cannot_connect, null, translations.error, translations.ok);
-                });
-            });
-          });
-        };
-
-    }).error(function () {
-        $location.path('/offline');
-    });
-}).controller('LearnMemoryDownloadItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
-
-    $http.get('http://' + $localStorage.adress + '/api/' + $routeParams.id).success(function (data) {
-        $scope.item = data;
-
-        $rootScope.download = function () {
-                var exist = false;
-                angular.forEach($localStorage.offline, function (value, key) {
-                    if (value.id == $routeParams.id) {
-                        exist = key;
-                    }
-                });
-
-                data.keywords = data.content
-                    .replace(/&#39;/gi, '\'')
-                    .replace(/\n/gi, ' ')
-                    .replace(/<.[^>]*>/gi, '')
-                    .replace(/&quot/gi, '"')
-                    .substring(0, 100);
-
-                if (exist) {
-                    $localStorage.offline[exist] = data;
-                } else {
-                    $localStorage.offline.push(data);
-                }
-                $translate(['a_lesson_downloaded', 'ok', 'done']).then(function (translations) {
-                  navigator.notification.alert(translations.a_lesson_downloaded, null, translations.done, translations.ok);
-                });
-                $rootScope.download = false;
-        };
-
-        $scope.share = function () {
-          $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
-            var options = {
-              message: translations.lesson_of + ' ' + $scope.item.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
-              title: translations.pick_an_app
-            };
-            sharetext(options.message, options.title);
-          });
-        };
-
-        document.getElementById('lesson-content').onclick = function (e) {
-            e = e || window.event;
-            var element = e.target || e.srcElement;
-
-            if (element.tagName == 'A') {
-                window.open(element.href, '_system');
-                return false;
-            }
-        };
-    }).error(function () {
-        $location.path('/offline/' + $routeParams.id);
-    });
-}).controller('LearnMemoryOfflineCtrl', function ($scope, $rootScope, $location, $localStorage) {
-
-    $rootScope.download = false;
-
-    $scope.items = $localStorage.offline;
-    document.getElementById('container').scrollTop = 0;
+}).controller('LearnMemoryListCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate, $q) {
 
     $scope.goItem = function (item) {
-        $location.path('/offline/' + item.id);
+          $location.path('/lessons/' + item.id);
     };
-}).controller('LearnMemoryOfflineItemCtrl', function ($scope, $rootScope, $location, $localStorage, $routeParams, $translate) {
 
-    $rootScope.nav = false;
-    $rootScope.download = false;
-
-    angular.forEach($localStorage.offline, function (value, key) {
-        if (value.id == $routeParams.id) {
-            $scope.item = value;
-            $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
-            document.getElementById('container').scrollTop = 0;
-        }
-    });
-
-    $scope.share = function () {
-      $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
-        var options = {
-          message: translations.lesson_of + ' ' + $scope.item.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
-          title: translations.pick_an_app
-        };
-        sharetext(options.message, options.title);
+    var endSync = function () {
+      $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
+        SpinnerPlugin.activityStop();
+        navigator.notification.alert(translations.all_lesson_downloaded, null, translations.done, translations.ok);
       });
     };
 
-    document.getElementById('lesson-content').onclick = function (e) {
-        e = e || window.event;
-        var element = e.target || e.srcElement;
-
-        if (element.tagName == 'A') {
-            window.open(element.href, '_system');
-            return false;
-        }
+    var cannotConnect = function() {
+      $translate(['cannot_connect', 'ok', 'error']).then(function (translations) {
+        SpinnerPlugin.activityStop();
+        navigator.notification.alert(translations.cannot_connect, null, translations.error, translations.ok);
+      });
     };
+
+    var diff = function (a, b) {
+      var bIds = {}
+      b.forEach(function(obj) {
+          bIds[obj.id] = obj;
+      });
+      return a.filter(function(obj) {
+          return !(obj.id in bIds);
+      }).map(function(obj) {
+          return obj.id;
+      });
+    };
+
+    var getKey = function (array, id) {
+        var i = 0;
+        for(var item in array) {
+            if(array[item].id == id) {
+              return i;
+              break;
+            }
+            i++;
+        }
+    }
+
+    if ($localStorage.offline.length === 0) {
+      SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
+      $http.get('http://' + $localStorage.adress + '/api?createdAt&content&attachments').success(function (data) {
+          $localStorage.offline = data;
+          $scope.lessons = data;
+          endSync();
+      }).error(cannotConnect);
+    } else {
+      SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
+      $http.get('http://' + $localStorage.adress + '/api').success(function (data) {
+
+        var toDelete = diff($localStorage.offline, data);
+        var toDownload = diff(data, $localStorage.offline);
+
+        toDelete.forEach(function(id) {
+          $localStorage.offline.splice(getKey($localStorage.offline, id), 1);
+        });
+
+        $localStorage.offline.forEach(function (item) {
+          for (var i in data) {
+            if (data[i].id == item.id) {
+              if (new Date(data[i].updatedAt).getTime() > new Date(item.updatedAt).getTime()) {
+                toDownload.push(item.id);
+              }
+              break;
+            }
+          }
+        });
+
+        var requests = [];
+        toDownload.forEach(function (id) {
+          requests.push($http.get('http://' + $localStorage.adress + '/api/' + id));
+        });
+
+        $q.all(requests).then(function(values) {
+            values.forEach(function (value) {
+
+              var key = 0;
+              for (var i in $localStorage.offline) {
+                if (value.data.id == $localStorage.offline[i].id) {
+                  key = i;
+                  break;
+                }
+              }
+
+              value.data.keywords = value.data.content.replace(/&#39;/gi, '\'')
+                                            .replace(/\n/gi, ' ')
+                                            .replace(/<.[^>]*>/gi, '')
+                                            .replace(/&quot/gi, '"')
+                                            .substring(0, 100);
+
+              if (key) {
+                  $localStorage.offline[key] = value.data;
+              } else {
+                  $localStorage.offline.push(value.data);
+              }
+            });
+            endSync();
+        }).catch(cannotConnect);
+
+      }).error(cannotConnect);
+    }
+
+    $scope.lessons = $localStorage.offline;
+}).controller('LearnMemoryItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
+      angular.forEach($localStorage.offline, function (value, key) {
+          if (value.id == $routeParams.id) {
+              $scope.item = value;
+              $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
+              document.getElementById('container').scrollTop = 0;
+          }
+      });
+
+      $scope.share = function () {
+        $translate(['pick_an_app', 'lesson_of']).then(function (translations) {
+          var options = {
+            message: translations.lesson_of + ' ' + $scope.item.substance + ': http://' + $localStorage.adress + '/#/lessons/' + $routeParams.id,
+            title: translations.pick_an_app
+          };
+          sharetext(options.message, options.title);
+        });
+      };
+
+      document.getElementById('lesson-content').onclick = function (e) {
+          e = e || window.event;
+          var element = e.target || e.srcElement;
+
+          if (element.tagName == 'A') {
+              window.open(element.href, '_system');
+              return false;
+          }
+      };
 }).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $translate) {
 
     $rootScope.download = false;
