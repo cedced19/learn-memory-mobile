@@ -3,7 +3,7 @@
     <span class="date">{{ 'last_update' | translate }}: {{ 'date_template' | translate:{date: item.updatedAt} }} {{ item.updatedAt | date:'HH:mm' }}</span>
 </p>
 <div class="attachments">
-    <a class="attachment" ng-repeat="attachment in item.attachments" href="//{{adress}}/attachments/{{attachment}}" target="_system">
+    <a class="attachment" ng-repeat="attachment in item.attachments" ng-href="http://{{adress}}/attachments/{{attachment}}" onclick="window.open(this.href, '_system');">
       <span class="title"><i class="glyphicon glyphicon-file"></i> {{ 'file' | translate }} {{attachment.split('.').pop()}}</span>
     </a>
 </div>

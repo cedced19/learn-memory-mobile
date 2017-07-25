@@ -99,6 +99,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
 
     var synchronize = function (verbose) {
       var endSync = function () {
+        $scope.lessons = $localStorage.offline;
         $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
           SpinnerPlugin.activityStop();
           if (verbose) {
@@ -185,7 +186,6 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
 
         }).error(cannotConnect);
       }
-      $scope.lessons = $localStorage.offline;
       $localStorage.synchronized = (new Date());
     };
 
@@ -233,6 +233,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
               return false;
           }
       };
+
       $scope.adress = $localStorage.adress;
 }).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $translate) {
 
