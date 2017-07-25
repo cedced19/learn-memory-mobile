@@ -233,6 +233,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
               return false;
           }
       };
+      $scope.adress = $localStorage.adress;
 }).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $translate) {
 
     $rootScope.synchronize = false;

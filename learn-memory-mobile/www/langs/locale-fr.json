@@ -25,5 +25,6 @@
   "error": "Erreur",
   "cannot_connect": "Impossible de se connecter",
   "lesson_of": "Leçon de",
-  "pick_an_app": "Choisir une application"
+  "pick_an_app": "Choisir une application",
+  "file": "Fichier"
 }

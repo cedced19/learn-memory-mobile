@@ -91,6 +91,27 @@ a {
 	 	margin-top: 10px;
 		margin-bottom: 10px;
 }
+.attachments .attachment {
+	display: inline-block;
+	margin-right: 8px;
+	box-shadow: 0 0 1px rgba(0,0,0,.11), 0 1px 2px rgba(0,0,0,.22);
+	background-color: rgba(0,0,0,.03);
+	border-radius: 2px;
+	height: 50px;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.attachments .attachment:hover, .attachments .attachment:link, .attachments .attachment:focus {
+	color: #2E214B;
+	border: none;
+}
+.attachments .attachment .title {
+	padding: 5px;
+  display: block;
+}
 @media only screen and (max-width:750px) {
 	.site-pusher,.site-container {
 		height:100%
