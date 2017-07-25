@@ -60,7 +60,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
         offline: []
     });
 
-    $rootScope.download = false;
+    $rootScope.synchronize = false;
     $rootScope.nav = 'home';
 
     if (!$localStorage.adress) {
@@ -73,24 +73,6 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
         $location.path('/lessons');
     }
 }).controller('LearnMemoryListCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate, $q) {
-
-    $scope.goItem = function (item) {
-          $location.path('/lessons/' + item.id);
-    };
-
-    var endSync = function () {
-      $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
-        SpinnerPlugin.activityStop();
-        navigator.notification.alert(translations.all_lesson_downloaded, null, translations.done, translations.ok);
-      });
-    };
-
-    var cannotConnect = function() {
-      $translate(['cannot_connect', 'ok', 'error']).then(function (translations) {
-        SpinnerPlugin.activityStop();
-        navigator.notification.alert(translations.cannot_connect, null, translations.error, translations.ok);
-      });
-    };
 
     var diff = function (a, b) {
       var bIds = {}
@@ -113,73 +95,117 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
             }
             i++;
         }
-    }
+    };
 
-    if ($localStorage.offline.length === 0) {
-      SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
-      $http.get('http://' + $localStorage.adress + '/api?createdAt&content&attachments').success(function (data) {
-          $localStorage.offline = data;
-          $scope.lessons = data;
-          endSync();
-      }).error(cannotConnect);
-    } else {
-      SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
-      $http.get('http://' + $localStorage.adress + '/api').success(function (data) {
-
-        var toDelete = diff($localStorage.offline, data);
-        var toDownload = diff(data, $localStorage.offline);
-
-        toDelete.forEach(function(id) {
-          $localStorage.offline.splice(getKey($localStorage.offline, id), 1);
-        });
-
-        $localStorage.offline.forEach(function (item) {
-          for (var i in data) {
-            if (data[i].id == item.id) {
-              if (new Date(data[i].updatedAt).getTime() > new Date(item.updatedAt).getTime()) {
-                toDownload.push(item.id);
-              }
-              break;
-            }
+    var synchronize = function (verbose) {
+      var endSync = function () {
+        $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
+          SpinnerPlugin.activityStop();
+          if (verbose) {
+            navigator.notification.alert(translations.all_lesson_downloaded, null, translations.done, translations.ok);
           }
         });
+      };
 
-        var requests = [];
-        toDownload.forEach(function (id) {
-          requests.push($http.get('http://' + $localStorage.adress + '/api/' + id));
+      var cannotConnect = function() {
+        $translate(['cannot_connect', 'ok', 'error']).then(function (translations) {
+          if (verbose) {
+            SpinnerPlugin.activityStop();
+            navigator.notification.alert(translations.cannot_connect, null, translations.error, translations.ok);
+          }
         });
+      };
 
-        $q.all(requests).then(function(values) {
-            values.forEach(function (value) {
-
-              var key = 0;
-              for (var i in $localStorage.offline) {
-                if (value.data.id == $localStorage.offline[i].id) {
-                  key = i;
-                  break;
-                }
-              }
-
-              value.data.keywords = value.data.content.replace(/&#39;/gi, '\'')
-                                            .replace(/\n/gi, ' ')
-                                            .replace(/<.[^>]*>/gi, '')
-                                            .replace(/&quot/gi, '"')
-                                            .substring(0, 100);
-
-              if (key) {
-                  $localStorage.offline[key] = value.data;
-              } else {
-                  $localStorage.offline.push(value.data);
-              }
-            });
+      if ($localStorage.offline.length === 0) {
+        if (verbose) {
+          $translate('loading').then(function (translation) {
+            SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
+          });
+        }
+        $http.get('http://' + $localStorage.adress + '/api?createdAt&content&attachments').success(function (data) {
+            $localStorage.offline = data;
             endSync();
-        }).catch(cannotConnect);
+        }).error(cannotConnect);
+      } else {
+        if (verbose) {
+          $translate('loading').then(function (translation) {
+            SpinnerPlugin.activityStart(translation + '...', { dimBackground: true });
+          });
+        }
+        $http.get('http://' + $localStorage.adress + '/api').success(function (data) {
 
-      }).error(cannotConnect);
+          var toDelete = diff($localStorage.offline, data);
+          var toDownload = diff(data, $localStorage.offline);
+
+          toDelete.forEach(function(id) {
+            $localStorage.offline.splice(getKey($localStorage.offline, id), 1);
+          });
+
+          $localStorage.offline.forEach(function (item) {
+            for (var i in data) {
+              if (data[i].id == item.id) {
+                if (new Date(data[i].updatedAt).getTime() > new Date(item.updatedAt).getTime()) {
+                  toDownload.push(item.id);
+                }
+                break;
+              }
+            }
+          });
+
+          var requests = [];
+          toDownload.forEach(function (id) {
+            requests.push($http.get('http://' + $localStorage.adress + '/api/' + id));
+          });
+
+          $q.all(requests).then(function(values) {
+              values.forEach(function (value) {
+
+                var key = 0;
+                for (var i in $localStorage.offline) {
+                  if (value.data.id == $localStorage.offline[i].id) {
+                    key = i;
+                    break;
+                  }
+                }
+
+                value.data.keywords = value.data.content.replace(/&#39;/gi, '\'')
+                                              .replace(/\n/gi, ' ')
+                                              .replace(/<.[^>]*>/gi, '')
+                                              .replace(/&quot/gi, '"')
+                                              .substring(0, 100);
+
+                if (key) {
+                    $localStorage.offline[key] = value.data;
+                } else {
+                    $localStorage.offline.push(value.data);
+                }
+              });
+              endSync();
+          }).catch(cannotConnect);
+
+        }).error(cannotConnect);
+      }
+      $scope.lessons = $localStorage.offline;
+      $localStorage.synchronized = (new Date());
+    };
+
+    if (!$localStorage.synchronized || ((new Date()) - new Date($localStorage.synchronized)) > 600000) {
+      synchronize(false);
     }
+
+
+    $rootScope.synchronize = function () {
+          synchronize(true);
+    };
+
+    $scope.goLesson = function (lesson) {
+          $location.path('/lessons/' + lesson.id);
+    };
 
     $scope.lessons = $localStorage.offline;
 }).controller('LearnMemoryItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
+      $rootScope.synchronize = false;
+
       angular.forEach($localStorage.offline, function (value, key) {
           if (value.id == $routeParams.id) {
               $scope.item = value;
@@ -209,7 +235,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
       };
 }).controller('LearnMemoryConfigCtrl', function ($scope, $rootScope, $location, $localStorage, $translate) {
 
-    $rootScope.download = false;
+    $rootScope.synchronize = false;
 
     $scope.adress = $localStorage.adress;
 

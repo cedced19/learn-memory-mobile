@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goItem(item)" class="fade">
+        <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goLesson(lesson)" class="fade">
             <td>{{lesson.substance}}</td>
             <td>{{lesson.keywords | limitTo : 20}}</td>
             <td>{{ 'date_template' | translate:{date: lesson.updatedAt} }}</td>

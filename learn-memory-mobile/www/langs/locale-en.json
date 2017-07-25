@@ -1,6 +1,6 @@
 {
   "last_update": "Last update",
-  "date_template": "{{ date | date:'MM/dd/yyyy' }}",
+  "date_template": "{{ date | date:'MM/dd/yy' }}",
   "update_adress": "Update adress",
   "subject": "Subject",
   "content": "Content",
