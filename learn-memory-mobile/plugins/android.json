@@ -24,6 +24,9 @@
         },
         "io.github.cedced19.sharetext": {
             "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "io.github.cedced19.learnmemorymobile"
         }
     },
     "dependent_plugins": {}

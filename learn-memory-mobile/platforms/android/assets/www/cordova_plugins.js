@@ -47,6 +47,21 @@ module.exports = [
         "clobbers": [
             "sharetext"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -57,7 +72,8 @@ module.exports.metadata =
     "cordova-plugin-spinner": "1.1.0",
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-whitelist": "1.2.1",
-    "io.github.cedced19.sharetext": "0.0.0"
+    "io.github.cedced19.sharetext": "0.0.0",
+    "cordova-plugin-network-information": "1.3.3"
 };
 // BOTTOM OF METADATA
 });

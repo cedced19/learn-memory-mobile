@@ -209,9 +209,21 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
       angular.forEach($localStorage.offline, function (value, key) {
           if (value.id == $routeParams.id) {
               $scope.item = Object.create(value);
-              $translate('images_offline').then(function (translation) {
-                $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">'+ translation +'</p>');
-              });
+              var checkInternet = function () {
+                    var networkState = navigator.connection.type;
+                    if(networkState == Connection.NONE || networkState == Connection.CELL_2G || networkState == Connection.CELL_3G) {
+                        return false;
+                    } else {
+                       return true;
+                    }
+              }
+
+              if (!checkInternet()) {
+                $translate('images_offline').then(function (translation) {
+                  $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">'+ translation +'</p>');
+                });
+              }
+
               document.getElementById('container').scrollTop = 0;
           }
       });
