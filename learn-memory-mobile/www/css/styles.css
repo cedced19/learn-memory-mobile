@@ -111,6 +111,53 @@ a {
 .attachments .attachment .title {
 	padding: 5px;
   display: block;
+	float: left
+}
+.lessons .lesson {
+	display: block;
+	margin-right: 8px;
+	box-shadow: 0 0 1px rgba(0,0,0,.11), 0 1px 2px rgba(0,0,0,.22);
+	background-color: rgba(0,0,0,.03);
+	border-radius: 2px;
+	border: none;
+	cursor: pointer;
+	margin-bottom: 10px;
+	width: 100%;
+	white-space: nowrap;
+	height: 70px;
+}
+.lessons .lesson .subject {
+	padding: 5px;
+  display: inline-block;
+	float: left;
+}
+.lessons .lesson .date {
+	padding: 5px;
+  display: inline-block;
+	float: right;
+}
+.lessons .lesson .content {
+	padding: 5px;
+  display: inline-block;
+	float: left;
+}
+.blur {
+  display: inline-block;
+  position: relative;
+}
+.blur:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 3em;
+  content: '';
+  background: -moz-linear-gradient(left, rgba(247,247,247,0) 0%, rgba(247,247,247,1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(247,247,247,0)), color-stop(100%,rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(left, rgba(247,247,247,0) 0%,rgba(247,247,247,1) 100%);
+  background: -o-linear-gradient(left, rgba(247,247,247,0) 0%,rgba(247,247,247,1) 100%);
+  background: -ms-linear-gradient(left, rgba(247,247,247,0) 0%,rgba(247,247,247,1) 100%);
+  background: linear-gradient(to right, rgba(247,247,247,0) 0%,rgba(247,247,247,1) 100%);
 }
 @media only screen and (max-width:750px) {
 	.site-pusher,.site-container {
