@@ -6,21 +6,3 @@
       <span class="content"><b translate="content"></b>: <span class="blur">{{lesson.keywords | limitTo : 30}}</span></span>
     </div>
 </div>
-<!--
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th translate="subject"></th>
-            <th translate="content"></th>
-            <th translate="date"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="lesson in lessons | filter:search | orderBy:'updatedAt':true" ng-click="goLesson(lesson)" class="fade">
-            <td>{{lesson.substance}}</td>
-            <td>{{lesson.keywords | limitTo : 20}}</td>
-            <td>{{ 'date_template' | translate:{date: lesson.updatedAt} }}</td>
-        </tr>
-    </tbody>
-</table>
--->

@@ -26,5 +26,6 @@
   "cannot_connect": "Unable to download",
   "lesson_of": "Lesson of",
   "pick_an_app": "Pick an app",
-  "file": "File"
+  "file": "File",
+  "images_offline": "Images can't be show in offline mode."
 }

@@ -26,5 +26,6 @@
   "cannot_connect": "Impossible de se connecter",
   "lesson_of": "Leçon de",
   "pick_an_app": "Choisir une application",
-  "file": "Fichier"
+  "file": "Fichier",
+  "images_offline": "Les images ne peuvent pas être affiché en mode hors-ligne."
 }

@@ -208,8 +208,10 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
 
       angular.forEach($localStorage.offline, function (value, key) {
           if (value.id == $routeParams.id) {
-              $scope.item = value;
-              $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">Images can\'t be show in offline mode.</p>');
+              $scope.item = Object.create(value);
+              $translate('images_offline').then(function (translation) {
+                $scope.item.content = $scope.item.content.replace(/<img [^>]*src=".*?[^\]"[^>]*\/>/gi, '<p class="lesson-error">'+ translation +'</p>');
+              });
               document.getElementById('container').scrollTop = 0;
           }
       });
