@@ -243,6 +243,8 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
 
     $scope.update = function () {
         $localStorage.adress = $scope.adress;
+        $localStorage.offline = [];
+        $localStorage.synchronized = false;
         $translate(['adress_updated', 'ok', 'updated']).then(function (translations) {
           navigator.notification.alert(translations.adress_updated, null, translations.updated, translations.ok);
         });
