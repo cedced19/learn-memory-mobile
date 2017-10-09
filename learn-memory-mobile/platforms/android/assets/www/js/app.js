@@ -201,6 +201,8 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
     $scope.goLesson = function (lesson) {
           $location.path('/lessons/' + lesson.id);
     };
+
+    document.getElementById('container').scrollTop = 0;
 }).controller('LearnMemoryItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
       $rootScope.synchronize = false;
 
