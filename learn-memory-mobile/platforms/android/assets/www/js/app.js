@@ -68,10 +68,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
       $location.path('/lessons');
     };
 }).controller('LearnMemoryListCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate, $q) {
-
-    if (!$localStorage.adress) {
-      $location.path('/first_config');
-    }
+    $scope.lessons = $localStorage.offline;
 
     var diff = function (a, b) {
       var bIds = {}
@@ -97,6 +94,10 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
     };
 
     var synchronize = function (verbose) {
+      if (!$localStorage.adress) {
+        return $location.path('/first_config');
+      }
+
       var endSync = function () {
         $scope.lessons = $localStorage.offline;
         $translate(['all_lesson_downloaded', 'ok', 'done']).then(function (translations) {
@@ -200,8 +201,6 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
     $scope.goLesson = function (lesson) {
           $location.path('/lessons/' + lesson.id);
     };
-
-    $scope.lessons = $localStorage.offline;
 }).controller('LearnMemoryItemCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $routeParams, $translate) {
       $rootScope.synchronize = false;
 
