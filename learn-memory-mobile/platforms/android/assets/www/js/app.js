@@ -1,9 +1,9 @@
 angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 'pascalprecht.translate'])
 .config(function ($routeProvider, $translateProvider) {
     $routeProvider
-    .when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'LearnMemoryHomeCtrl'
+    .when('/first_config', {
+        templateUrl: 'views/first-config.html',
+        controller: 'LearnMemoryFirstConfigCtrl'
     })
     .when('/lessons', {
         templateUrl: 'views/list.html',
@@ -18,7 +18,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
         controller: 'LearnMemoryConfigCtrl'
     })
     .otherwise({
-        redirectTo: '/'
+        redirectTo: '/lessons'
     });
 
     $translateProvider
@@ -54,7 +54,7 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
           $rootScope.nav = $location.path().substring(1);
     });
 })
-.controller('LearnMemoryHomeCtrl', function ($scope, $rootScope, $location, $localStorage) {
+.controller('LearnMemoryFirstConfigCtrl', function ($scope, $rootScope, $location, $localStorage) {
     $localStorage.$default({
         adress: '',
         offline: []
@@ -63,16 +63,15 @@ angular.module('LearnMemory', ['ngRoute', 'ngStorage', 'ngSanitize', 'ngTouch', 
     $rootScope.synchronize = false;
     $rootScope.nav = 'home';
 
-    if (!$localStorage.adress) {
-
-        $scope.start = function () {
-            $localStorage.adress = $scope.adress;
-            $location.path('/lessons');
-        };
-    } else {
-        $location.path('/lessons');
-    }
+    $scope.start = function () {
+      $localStorage.adress = $scope.adress;
+      $location.path('/lessons');
+    };
 }).controller('LearnMemoryListCtrl', function ($scope, $rootScope, $location, $localStorage, $http, $translate, $q) {
+
+    if (!$localStorage.adress) {
+      $location.path('/first_config');
+    }
 
     var diff = function (a, b) {
       var bIds = {}
